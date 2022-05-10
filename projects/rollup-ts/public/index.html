@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset='utf-8'>
+	<meta name='viewport' content='width=device-width'>
+	<title>mxGraph bundled by Rollup</title>
+
+	<style>
+		body {
+			font-family: 'Helvetica Neue', Arial, sans-serif;
+			color: #333;
+			font-weight: 300;
+		}
+		#graph-container {
+			left: 10px;
+			width: 500px;
+			height: 500px;
+			border: gray 1px solid;
+			overflow: hidden;
+		}
+		/* For rubber band selection as we don't have mxgraph default resources in the project */
+		div.mxRubberband {
+			position: absolute;
+			overflow: hidden;
+			border-style: solid;
+			border-width: 2px;
+			border-color: #b18426;
+			background: #db9b0b;
+		}
+	</style>
+</head>
+<body>
+	<h1>mxGraph Typescript example bundled by Rollup</h1>
+	<p>Display a test graph. Activated behaviours:</p>
+	<ul>
+		<li>Panning: use mouse right button</li>
+		<li>Cells selection: use mouse left button</li>
+		<li>Create edge</li>
+	</ul>
+	<div id="graph-container"></div>
+	<script src='bundle.js'></script>
+</body>
+</html>
