@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "module": "es6",
+    "target": "es6",
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "sourceMap": true,
+    "lib": [
+      "es6",
+      "dom"
+    ],
+    "moduleResolution": "node",
+    "noEmit": true, // tsc only used for checks, Parcel manages file generation
+    "forceConsistentCasingInFileNames": true,
+    // TODO currently required as some type definitions in @maxgraph/core package references src/types which is not available in the dist/ folder
+    "skipLibCheck": true
+  },
+  "include": [
+    "src"
+  ]
+}

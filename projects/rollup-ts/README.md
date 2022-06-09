@@ -19,11 +19,6 @@ npm install
 
 ### Running the project
 
-**WARN** currently ko, rollup try to build the ts code from the maxgraph project when using `npm link`
-> [!] (plugin commonjs--resolver) Error: Unexpected token (Note that you need plugins to import files that are not JavaScript)
-../../../maxGraph/packages/core/src/view/cell/CellRenderer.ts (89:22)
-
-
 The `public/index.html` file contains a `<script src='bundle.js'>` tag, which means we need to create `public/bundle.js`.
 The `rollup.config.js` file tells Rollup how to create this bundle, starting with `src/main.ts` and including all its dependencies,
 including `mxGraph`.

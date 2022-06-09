@@ -1,32 +1,37 @@
-// TODO fully duplicated with the rollup-ts project
+// TODO fully duplicated with other projects
 
-import {AbstractCanvas2D, EllipseShape, Rectangle, RectangleShape} from '@maxgraph/core';
-import CellRenderer from "../../../../maxGraph/packages/core/src/view/cell/CellRenderer";
+import {AbstractCanvas2D, CellRenderer, type ColorValue, EllipseShape, Rectangle, RectangleShape} from '@maxgraph/core';
 
 export function registerCustomShapes(): void {
     console.info('Registering custom shapes...');
     // @ts-ignore TODO fix CellRenderer. Calls to this function are also marked as 'ts-ignore' in CellRenderer
-    CellRenderer.registerShape('customRectangle', CustomMxRectangleShape);
+    CellRenderer.registerShape('customRectangle', CustomRectangleShape);
     // @ts-ignore
-    CellRenderer.registerShape('customEllipse', CustomMxEllipse);
+    CellRenderer.registerShape('customEllipse', CustomEllipseShape);
     console.info('Custom shapes registered');
 }
 
-class CustomMxRectangleShape extends RectangleShape {
+class CustomRectangleShape extends RectangleShape {
 
-    constructor(bounds: Rectangle, fill: string, stroke: string, strokewidth?: number) {
-        super(bounds, fill, stroke, strokewidth);
-        this.isRounded = true; // force rounded shape
+    constructor(bounds: Rectangle, fill: ColorValue, stroke: ColorValue) {
+        super(bounds, fill, stroke, 3);
+        // TODO if set, the shape is not painted
+        // this.isRounded = true; // force rounded shape
     }
 
     paintBackground(c: AbstractCanvas2D, x: number, y: number, w: number, h: number): void {
         c.setFillColor('Chartreuse');
         super.paintBackground(c, x, y, w, h);
-    };
+    }
+
+    paintVertexShape(c: AbstractCanvas2D, x: number, y: number, w: number, h: number) {
+        c.setStrokeColor('Black');
+        super.paintVertexShape(c, x, y, w, h);
+    }
 
 }
 
-class CustomMxEllipse extends EllipseShape {
+class CustomEllipseShape extends EllipseShape {
     constructor(bounds: Rectangle, fill: string, stroke: string) {
         super(bounds, fill, stroke, 5);
     }

@@ -1,0 +1,16 @@
+{
+  "name": "maxgraph-ts-example-built-with-parcel",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "tsc && parcel build index.html"
+  },
+  "dependencies": {
+    "@maxgraph/core": "*"
+  },
+  "devDependencies": {
+    "parcel": "~2.6.0",
+    "typescript": "~4.7.3"
+  }
+}
