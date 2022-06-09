@@ -106,3 +106,6 @@ dist
 # IDE
 .idea
 *.iml
+
+# temp until we cannot use maxgraph package
+package-lock.json
