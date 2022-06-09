@@ -1,0 +1,42 @@
+# Enable when a maxgraph package will be published on npmjs
+name: Check TypeScript projects
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/check-typescript-projects.yml'
+      - 'projects/parcel-ts/**/*'
+      - 'projects/rollup-ts/**/*'
+      - 'projects/vitejs-ts/**/*'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/check-typescript-projects.yml'
+      - 'projects/parcel-ts/**/*'
+      - 'projects/rollup-ts/**/*'
+      - 'projects/vitejs-ts/**/*'
+
+jobs:
+  check:
+    runs-on: ubuntu-20.04
+    strategy:
+      # don't cancel running jobs even if one fails
+      fail-fast: false
+      matrix:
+        project: [parcel-ts, rollup-ts, vitejs-ts]
+    env:
+      project_dir: ${{github.workspace}}/projects/${{matrix.project}}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+      - name: Install dependencies
+        working-directory: ${{env.project_dir}}
+        run: npm install
+      - name: Build project
+        working-directory: ${{env.project_dir}}
+        run: npm run build
