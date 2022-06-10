@@ -29,7 +29,7 @@ In the maxGraph project
 In this repository, go to the folder of the example you want to use. Then you can use one of the following solution
 - the preferred way: `npm link <path_to_locally_installed_maxgraph>/packages/core`: create a soft link to the maxgraph local folder. Repack of maxgraph is
 automatically available in the examples
-- alternative: `npm install npm install <path_to_locally_installed_maxgraph>/packages/core/maxgraph-core-0.1.0.tgz`. For static install, this changes
+- alternative: `npm install <path_to_locally_installed_maxgraph>/packages/core/maxgraph-core-0.1.0.tgz`. For static install, this changes
 the package.json file, you must run this command again if you want to benefit
 
 
