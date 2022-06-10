@@ -59,13 +59,18 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: maxgraph-npm-package
-      - name: Unpack maxgraph npm package
+#      - name: Unpack maxgraph npm package
+#        run: |
+#          tar zxvf maxgraph-core-*.tgz
+#          mv package/ maxgraph-core/
+#          ls -lh maxgraph-core/
+      - name: Get path to the maxgraph npm package archive
         run: |
-          tar zxvf maxgraph-core-*.tgz
-          mv package/ maxgraph-core/
-          ls -lh
-          pwd
-          ls -lh maxgraph-core/
+          echo "pwd:" && pwd
+          echo "ls:" && ls -lh
+          echo "package file:" && ls maxgraph-core*
+          echo "path:" && echo "`pwd`/`ls maxgraph-core*`"
+          echo "maxgraph_package_path=`pwd`/`ls maxgraph-core*`" >> $GITHUB_ENV
       - uses: actions/checkout@v3
       - name: Setup node
         uses: actions/setup-node@v3
@@ -73,7 +78,9 @@ jobs:
           node-version-file: '.nvmrc'
       - name: Install dependencies and link the local maxgraph npm package
         working-directory: ${{env.project_dir}}
-        run: npm link ${{github.workspace}}/maxgraph-core/
+#        run: npm link ${{github.workspace}}/maxgraph-core/
+        run: |
+          npm install ${{ env.maxgraph_package_path }}
 #        run: npm install
       - name: Build project
         working-directory: ${{env.project_dir}}
