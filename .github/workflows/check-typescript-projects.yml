@@ -36,6 +36,12 @@ jobs:
      - name: Build package
        working-directory: packages/core
        run: npm pack
+     - name: Upload npm package
+       uses: actions/upload-artifact@v3
+       with:
+         name: maxgraph-npm-package
+         path: |
+           packages/core/maxgraph-core-*.tgz
 
 #  build_example:
 #    runs-on: ubuntu-20.04
