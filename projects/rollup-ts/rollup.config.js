@@ -1,5 +1,4 @@
 import resolve from '@rollup/plugin-node-resolve';
-import commonjs from '@rollup/plugin-commonjs';
 import typescript from 'rollup-plugin-typescript';
 import { terser } from 'rollup-plugin-terser';
 
@@ -16,7 +15,6 @@ export default {
 	},
 	plugins: [
 		resolve(), // tells Rollup how to find dependencies in node_modules
-		commonjs(), // converts mxGraph to ES modules
 		typescript(), // so Rollup can convert TypeScript to JavaScript
 		production && terser() // minify, but only in production
 	]

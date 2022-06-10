@@ -6,7 +6,6 @@
     "@maxgraph/core": "*"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "~22.0.0",
     "@rollup/plugin-node-resolve": "~13.3.0",
     "npm-run-all": "~4.1.5",
     "rollup": "~2.75.6",
