@@ -1,0 +1,83 @@
+name: Check TypeScript projects
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '5 4 * * 1'
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/check-typescript-projects.yml'
+      - 'projects/parcel-ts/**/*'
+      - 'projects/rollup-ts/**/*'
+      - 'projects/vitejs-ts/**/*'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/check-typescript-projects.yml'
+      - 'projects/parcel-ts/**/*'
+      - 'projects/rollup-ts/**/*'
+      - 'projects/vitejs-ts/**/*'
+
+jobs:
+  build_maxgraph_package:
+    runs-on: ubuntu-20.04
+    steps:
+     - uses: actions/checkout@v3
+       with:
+         repository: 'maxGraph/maxGraph'
+         # branch of the PR that improves the npm package generation: https://github.com/maxGraph/maxGraph/pull/87
+         ref: 'chore/prepare_npm_package'
+     - name: Setup node
+       uses: actions/setup-node@v3
+       with:
+         node-version: '16'
+     - name: Install dependencies
+       run: npm install
+     - name: Build package
+       working-directory: packages/core
+       run: npm pack
+     - name: Upload npm package
+       uses: actions/upload-artifact@v3
+       with:
+         name: maxgraph-npm-package
+         path: |
+           packages/core/maxgraph-core-*.tgz
+
+  build_example:
+    runs-on: ubuntu-20.04
+    needs: [build_maxgraph_package]
+    strategy:
+      # don't cancel running jobs even if one fails
+      fail-fast: false
+      matrix:
+        project: [parcel-ts, rollup-ts, vitejs-ts]
+    env:
+      project_dir: ${{github.workspace}}/projects/${{matrix.project}}
+      maxgraph_package_dir: ${{github.workspace}}/..
+    steps:
+      - name: Download maxgraph npm package
+        uses: actions/download-artifact@v3
+        with:
+          name: maxgraph-npm-package
+          path: ${{env.maxgraph_package_dir}}
+      - name: Get path to the maxgraph npm package archive
+        working-directory: ${{env.maxgraph_package_dir}}
+        run: |
+          echo "pwd:" && pwd
+          echo "ls:" && ls -lh
+          echo "package file:" && ls maxgraph-core*
+          echo "path:" && echo "`pwd`/`ls maxgraph-core*`"
+          echo "maxgraph_package_path=`pwd`/`ls maxgraph-core*`" >> $GITHUB_ENV
+      - uses: actions/checkout@v3
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+      - name: Install dependencies and link the local maxgraph npm package
+        working-directory: ${{env.project_dir}}
+        run: npm install ${{env.maxgraph_package_path}}
+      - name: Build project
+        working-directory: ${{env.project_dir}}
+        run: npm run build
