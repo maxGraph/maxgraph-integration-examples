@@ -1,4 +1,4 @@
-# TypeScript project using the maxGraph npm package 
+# vitejs-ts
 
 Initialized from https://github.com/vitejs/vite/tree/v2.9.8/packages/create-vite/template-vanilla-ts
 

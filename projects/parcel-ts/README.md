@@ -2,11 +2,12 @@
 
 Parcel v2 is used in this TypeScript project: https://parceljs.org
 
-To run locally:
+<!-- not working for now, no package available on npmjs
+From the project root, run `npm install`.
+-->
 
-<!-- `npm install` not working with npm link -->
-1. Setup maxgraph, see parent README
-2. `npm start`
-3. [localhost app](http://localhost:1234)
+See the README about maxGraph integration.
 
-If you want to bundle the application, run `npm run build`. --> not working, `tsc` tries to build maxgraph/core TS code!
+Then, run `npm run dev` and go to http://localhost:1234/
+
+If you want to bundle the application, run `npm run build`.

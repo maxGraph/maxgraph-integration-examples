@@ -1,25 +1,27 @@
 // TODO fully duplicated with other projects
 
 import './style.css';
-import {type CellStyle, Client, Graph, InternalEvent} from '@maxgraph/core';
+import {type CellStyle, Client, Graph, InternalEvent, RubberBandHandler} from '@maxgraph/core';
 import {registerCustomShapes} from "./custom-shapes";
 
 // display the maxGraph version in the footer
 const footer = document.querySelector<HTMLElement>('footer')!;
-footer.innerText = `maxGraph ${Client.VERSION}`;
+footer.innerText = `Built with maxGraph ${Client.VERSION}`;
 
 // Creates the graph inside the given container
-const container = document.querySelector<HTMLDivElement>('#graph-container')!;
+const container = <HTMLElement>document.getElementById('graph-container');
 // Disables the built-in context menu
 InternalEvent.disableContextMenu(container);
 
 const graph = new Graph(container);
-graph.setPanning(true); // use mouse right button
+graph.setPanning(true); // Use mouse right button for panning
+// WARN: as the maxGraph css files are not available in the npm package (at least for now), dedicated CSS class must be defined in style.css
+new RubberBandHandler(graph); // Enables rubber band selection
 
 // shapes and styles
 registerCustomShapes();
 // @ts-ignore TODO fix TS2532: Object is possibly 'undefined'.
-graph.getStylesheet().getDefaultEdgeStyle().edgeStyle = 'orthogonalEdgeStyle'; // TODO use constants.EDGESTYLE
+graph.getStylesheet().getDefaultEdgeStyle().edgeStyle = 'orthogonalEdgeStyle'; // TODO use constants.EDGESTYLE instead of 'orthogonalEdgeStyle'
 
 // Gets the default parent for inserting new cells. This
 // is normally the first child of the root (ie. layer 0).
