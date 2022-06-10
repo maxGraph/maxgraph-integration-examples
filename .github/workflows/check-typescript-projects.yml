@@ -43,25 +43,37 @@ jobs:
          path: |
            packages/core/maxgraph-core-*.tgz
 
-#  build_example:
-#    runs-on: ubuntu-20.04
-#    needs: [build_maxgraph_package]
-#    strategy:
-#      # don't cancel running jobs even if one fails
-#      fail-fast: false
-#      matrix:
+  build_example:
+    runs-on: ubuntu-20.04
+    needs: [build_maxgraph_package]
+    strategy:
+      # don't cancel running jobs even if one fails
+      fail-fast: false
+      matrix:
 #        project: [parcel-ts, rollup-ts, vitejs-ts]
-#    env:
-#      project_dir: ${{github.workspace}}/projects/${{matrix.project}}
-#    steps:
-#      - uses: actions/checkout@v3
-#      - name: Setup node
-#        uses: actions/setup-node@v3
-#        with:
-#          node-version-file: '.nvmrc'
-#      - name: Install dependencies
-#        working-directory: ${{env.project_dir}}
+        project: [vitejs-ts]
+    env:
+      project_dir: ${{github.workspace}}/projects/${{matrix.project}}
+    steps:
+      - name: Download maxgraph npm package
+        uses: actions/download-artifact@v3
+        with:
+          name: maxgraph-npm-package
+      - name: Unpack maxgraph npm package
+        run: |
+          tar zxvf maxgraph-core-*.tgz
+          mv package/ maxgraph-core/
+          ls -lh
+          pwd
+      - uses: actions/checkout@v3
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+      - name: Install dependencies and link the local maxgraph npm package
+        working-directory: ${{env.project_dir}}
+        run: npm link ${{github.workspace}}/maxgraph-core/
 #        run: npm install
-#      - name: Build project
-#        working-directory: ${{env.project_dir}}
-#        run: npm run build
+      - name: Build project
+        working-directory: ${{env.project_dir}}
+        run: npm run build
