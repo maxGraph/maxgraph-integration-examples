@@ -1,6 +1,8 @@
 name: Check TypeScript projects
 on:
-  # TODO add schedule to check that examples work with the latest development
+  workflow_dispatch:
+  schedule:
+    - cron: '5 4 * * 1'
   push:
     branches:
       - main
@@ -50,8 +52,7 @@ jobs:
       # don't cancel running jobs even if one fails
       fail-fast: false
       matrix:
-#        project: [parcel-ts, rollup-ts, vitejs-ts]
-        project: [vitejs-ts]
+        project: [parcel-ts, rollup-ts, vitejs-ts]
     env:
       project_dir: ${{github.workspace}}/projects/${{matrix.project}}
       maxgraph_package_dir: ${{github.workspace}}/..
@@ -61,11 +62,6 @@ jobs:
         with:
           name: maxgraph-npm-package
           path: ${{env.maxgraph_package_dir}}
-#      - name: Unpack maxgraph npm package
-#        run: |
-#          tar zxvf maxgraph-core-*.tgz
-#          mv package/ maxgraph-core/
-#          ls -lh maxgraph-core/
       - name: Get path to the maxgraph npm package archive
         working-directory: ${{env.maxgraph_package_dir}}
         run: |
@@ -81,10 +77,7 @@ jobs:
           node-version-file: '.nvmrc'
       - name: Install dependencies and link the local maxgraph npm package
         working-directory: ${{env.project_dir}}
-#        run: npm link ${{github.workspace}}/maxgraph-core/
-        run: |
-          npm install ${{env.maxgraph_package_path}}
-#        run: npm install
+        run: npm install ${{env.maxgraph_package_path}}
       - name: Build project
         working-directory: ${{env.project_dir}}
         run: npm run build
