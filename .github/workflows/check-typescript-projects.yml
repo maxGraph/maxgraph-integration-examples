@@ -1,0 +1,60 @@
+name: Check TypeScript projects
+on:
+  # TODO add schedule to check that examples work with the latest development
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/check-typescript-projects.yml'
+      - 'projects/parcel-ts/**/*'
+      - 'projects/rollup-ts/**/*'
+      - 'projects/vitejs-ts/**/*'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/check-typescript-projects.yml'
+      - 'projects/parcel-ts/**/*'
+      - 'projects/rollup-ts/**/*'
+      - 'projects/vitejs-ts/**/*'
+
+jobs:
+  build_maxgraph_package:
+    runs-on: ubuntu-20.04
+    steps:
+     - uses: actions/checkout@v3
+       with:
+         repository: 'maxGraph/maxGraph'
+         # branch of the PR that improves the npm package generation: https://github.com/maxGraph/maxGraph/pull/87
+         ref: 'chore/prepare_npm_package'
+     - name: Setup node
+       uses: actions/setup-node@v3
+       with:
+         node-version: '16'
+     - name: Install dependencies
+       run: npm install
+     - name: Build package
+       run: npm pack
+
+#  build_example:
+#    runs-on: ubuntu-20.04
+#    needs: [build_maxgraph_package]
+#    strategy:
+#      # don't cancel running jobs even if one fails
+#      fail-fast: false
+#      matrix:
+#        project: [parcel-ts, rollup-ts, vitejs-ts]
+#    env:
+#      project_dir: ${{github.workspace}}/projects/${{matrix.project}}
+#    steps:
+#      - uses: actions/checkout@v3
+#      - name: Setup node
+#        uses: actions/setup-node@v3
+#        with:
+#          node-version-file: '.nvmrc'
+#      - name: Install dependencies
+#        working-directory: ${{env.project_dir}}
+#        run: npm install
+#      - name: Build project
+#        working-directory: ${{env.project_dir}}
+#        run: npm run build
