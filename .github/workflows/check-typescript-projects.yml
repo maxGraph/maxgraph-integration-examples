@@ -54,17 +54,20 @@ jobs:
         project: [vitejs-ts]
     env:
       project_dir: ${{github.workspace}}/projects/${{matrix.project}}
+      maxgraph_package_dir: ${{github.workspace}}/..
     steps:
       - name: Download maxgraph npm package
         uses: actions/download-artifact@v3
         with:
           name: maxgraph-npm-package
+          path: ${{env.maxgraph_package_dir}}
 #      - name: Unpack maxgraph npm package
 #        run: |
 #          tar zxvf maxgraph-core-*.tgz
 #          mv package/ maxgraph-core/
 #          ls -lh maxgraph-core/
       - name: Get path to the maxgraph npm package archive
+        working-directory: ${{env.maxgraph_package_dir}}
         run: |
           echo "pwd:" && pwd
           echo "ls:" && ls -lh
@@ -80,7 +83,7 @@ jobs:
         working-directory: ${{env.project_dir}}
 #        run: npm link ${{github.workspace}}/maxgraph-core/
         run: |
-          npm install ${{ env.maxgraph_package_path }}
+          npm install ${{env.maxgraph_package_path}}
 #        run: npm install
       - name: Build project
         working-directory: ${{env.project_dir}}
