@@ -10,7 +10,7 @@ export default {
 	input: 'src/main.ts',
 	output: {
 		file: 'public/bundle.js',
-		format: 'iife', // immediately-invoked function expression — suitable for <script> tags
+		format: 'es',
 		sourcemap: true
 	},
 	plugins: [
