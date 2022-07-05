@@ -20,17 +20,16 @@ If the Node version is not installed, `nvm` will state how to install the requir
 
 ### <a id="maxgraph-dev-version"></a> Use the maxGraph development version
 
-Build [maxGraph](https://github.com/maxGraph/maxGraph/) locally and run [npm link](https://docs.npmjs.com/cli/v8/commands/npm-link) in the examples.
+Build [maxGraph](https://github.com/maxGraph/maxGraph/) locally:
+  - from the `maxGraph` project root, run: `npm install`
+  - then, from the `packages/core` folder, run: `npm pack`
+  - the `packages/core` folder or the generated `packages/core/maxgraph-core-***.tgz` file are now ready for use in an external project
 
-In the maxGraph project
-- go to packages/core
-- run `npm pack`
-
-In this repository, go to the folder of the example you want to use. Then you can use one of the following solution
-- the preferred way: `npm link <path_to_locally_installed_maxgraph>/packages/core`: create a soft link to the maxgraph local folder. Repack of maxgraph is
-automatically available in the examples
-- alternative: `npm install <path_to_locally_installed_maxgraph>/packages/core/maxgraph-core-0.1.0.tgz`. For static install, this changes
-the package.json file, you must run this command again if you want to benefit
+In this folder where you clone the `maxgraph-integration-examples` project, go to the folder of the example you want to use. Then you can use one of the following solution
+  - with [npm link](https://docs.npmjs.com/cli/v8/commands/npm-link): `npm link <path_to_locally_installed_maxgraph>/packages/core`: create a soft link to the maxgraph local folder.
+  Repack of maxgraph is automatically available in the examples
+  - alternative: `npm install <path_to_locally_installed_maxgraph>/packages/core/maxgraph-core-0.1.0.tgz`. This changes
+  the package.json file. You must run this command again each time you rebuild the maxgraph npm package.
 
 
 ### Available projects
