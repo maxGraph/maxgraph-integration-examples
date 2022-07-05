@@ -27,8 +27,6 @@ jobs:
      - uses: actions/checkout@v3
        with:
          repository: 'maxGraph/maxGraph'
-         # branch of the PR that improves the npm package generation: https://github.com/maxGraph/maxGraph/pull/87
-         ref: 'chore/prepare_npm_package'
      - name: Setup node
        uses: actions/setup-node@v3
        with:
