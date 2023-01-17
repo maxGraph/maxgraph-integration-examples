@@ -8,6 +8,7 @@ on:
       - main
     paths:
       - '.github/workflows/check-typescript-projects.yml'
+      - '.nvmrc'
       - 'projects/parcel-ts/**/*'
       - 'projects/rollup-ts/**/*'
       - 'projects/vitejs-ts/**/*'
@@ -16,6 +17,7 @@ on:
       - main
     paths:
       - '.github/workflows/check-typescript-projects.yml'
+      - '.nvmrc'
       - 'projects/parcel-ts/**/*'
       - 'projects/rollup-ts/**/*'
       - 'projects/vitejs-ts/**/*'
