@@ -1,6 +1,6 @@
 import resolve from '@rollup/plugin-node-resolve';
-import typescript from 'rollup-plugin-typescript';
-import { terser } from 'rollup-plugin-terser';
+import terser from '@rollup/plugin-terser';
+import typescript from '@rollup/plugin-typescript';
 
 // `npm run build` -> `production` is true
 // `npm run dev` -> `production` is false
