@@ -8,7 +8,7 @@ Demonstrate how to integrate [maxGraph](https://github.com/maxGraph/maxGraph/) i
 
 ### Setup
 
-Ensure you are using Node 16 (this is the tested version, it may work with other versions without guarantee)
+Ensure you are using Node 18 (this is the tested version, it may work with other versions without guarantee)
 
 If you are using `nvm`, run
 ```shell
