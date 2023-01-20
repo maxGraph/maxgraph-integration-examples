@@ -24,7 +24,7 @@ on:
 
 jobs:
   build_maxgraph_package:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
      - uses: actions/checkout@v3
        with:
@@ -46,38 +46,35 @@ jobs:
            packages/core/maxgraph-core-*.tgz
 
   build_example:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     needs: [build_maxgraph_package]
     strategy:
       # don't cancel running jobs even if one fails
       fail-fast: false
       matrix:
         project: [parcel-ts, rollup-ts, vitejs-ts]
-    env:
-      project_dir: ${{github.workspace}}/projects/${{matrix.project}}
-      maxgraph_package_dir: ${{github.workspace}}/..
+        npm-package: ['release', 'development']
+    defaults:
+      run:
+        working-directory: ${{github.workspace}}/projects/${{matrix.project}}
     steps:
-      - name: Download maxgraph npm package
+      - name: Download the maxgraph npm package
+        if: ${{ matrix.npm-package == 'development' }}
+        id: 'download'
         uses: actions/download-artifact@v3
         with:
           name: maxgraph-npm-package
-          path: ${{env.maxgraph_package_dir}}
-      - name: Get path to the maxgraph npm package archive
-        working-directory: ${{env.maxgraph_package_dir}}
-        run: |
-          echo "pwd:" && pwd
-          echo "ls:" && ls -lh
-          echo "package file:" && ls maxgraph-core*
-          echo "path:" && echo "`pwd`/`ls maxgraph-core*`"
-          echo "maxgraph_package_path=`pwd`/`ls maxgraph-core*`" >> $GITHUB_ENV
+          path: ${{github.workspace}}/../maxgraph-npm-package
       - uses: actions/checkout@v3
       - name: Setup node
         uses: actions/setup-node@v3
         with:
           node-version-file: '.nvmrc'
-      - name: Install dependencies and link the local maxgraph npm package
-        working-directory: ${{env.project_dir}}
-        run: npm install ${{env.maxgraph_package_path}}
+      - name: Install dependencies
+        run: npm install
+      - name: Install maxgraph development npm package
+        if: ${{ matrix.npm-package == 'development' }}
+        # use wildcard as the file contains the version, and we don't know it
+        run: npm install ${{steps.download.outputs.download-path}}/maxgraph-core*.tgz
       - name: Build project
-        working-directory: ${{env.project_dir}}
         run: npm run build

@@ -9,13 +9,9 @@ Adapted from https://github.com/typed-mxgraph/typed-mxgraph-example-bundled-with
 
 ### Setup
 
-See the README about maxGraph integration.
+From the project root, run `npm install`.
 
-<!-- does not work for now
-```shell
-npm install
-```
--->
+If you want to use the maxGraph development version (built locally), see the README about maxGraph integration.
 
 ### Running the project
 

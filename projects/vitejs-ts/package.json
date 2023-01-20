@@ -8,7 +8,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@maxgraph/core": "*"
+    "@maxgraph/core": "0.1.0"
   },
   "devDependencies": {
     "typescript": "~4.9.4",

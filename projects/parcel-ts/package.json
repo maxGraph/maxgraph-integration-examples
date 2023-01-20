@@ -7,7 +7,7 @@
     "build": "tsc && parcel build index.html"
   },
   "dependencies": {
-    "@maxgraph/core": "*"
+    "@maxgraph/core": "0.1.0"
   },
   "devDependencies": {
     "parcel": "~2.8.2",
