@@ -2,8 +2,6 @@
 
 Demonstrate how to integrate [maxGraph](https://github.com/maxGraph/maxGraph/) in projects.
 
-**Important**: currently, there is no package published on npmjs, so use the [maxGraph development version](#maxgraph-dev-version) 
-
 ## Getting started
 
 ### Setup
@@ -18,6 +16,13 @@ nvm use
 If the Node version is not installed, `nvm` will state how to install the required version.
 
 
+### Available projects
+
+- [TypeScript with Parcel](./projects/parcel-ts/README.md)
+- [TypeScript with Rollup](./projects/rollup-ts/README.md)
+- [TypeScript with ViteJs](./projects/vitejs-ts/README.md)
+
+
 ### <a id="maxgraph-dev-version"></a> Use the maxGraph development version
 
 Build [maxGraph](https://github.com/maxGraph/maxGraph/) locally:
@@ -30,10 +35,3 @@ In this folder where you clone the `maxgraph-integration-examples` project, go t
   Repack of maxgraph is automatically available in the examples
   - alternative: `npm install <path_to_locally_installed_maxgraph>/packages/core/maxgraph-core-0.1.0.tgz`. This changes
   the package.json file. You must run this command again each time you rebuild the maxgraph npm package.
-
-
-### Available projects
-
-- [TypeScript with Parcel](./projects/parcel-ts/README.md)
-- [TypeScript with Rollup](./projects/rollup-ts/README.md)
-- [TypeScript with ViteJs](./projects/vitejs-ts/README.md)
