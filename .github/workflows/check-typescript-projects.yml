@@ -71,6 +71,10 @@ jobs:
         with:
           node-version-file: '.nvmrc'
       - name: Install dependencies
+        uses: bahmutov/npm-install@v1
+        with:
+          install-command: npm ci --prefer-offline --audit false --ignore-scripts
+      - name: Install dependencies
         run: npm install
       - name: Install maxgraph development npm package
         if: ${{ matrix.npm-package == 'development' }}
