@@ -23,37 +23,38 @@ on:
       - 'projects/vitejs-ts/**/*'
 
 jobs:
-  build_maxgraph_package:
-    runs-on: ubuntu-22.04
-    steps:
-     - uses: actions/checkout@v3
-       with:
-         repository: 'maxGraph/maxGraph'
-     - name: Setup node
-       uses: actions/setup-node@v3
-       with:
-         node-version-file: '.nvmrc'
-     - name: Install dependencies
-       run: npm install
-     - name: Build package
-       working-directory: packages/core
-       run: npm pack
-     - name: Upload npm package
-       uses: actions/upload-artifact@v3
-       with:
-         name: maxgraph-npm-package
-         path: |
-           packages/core/maxgraph-core-*.tgz
+#  build_maxgraph_package:
+#    runs-on: ubuntu-22.04
+#    steps:
+#     - uses: actions/checkout@v3
+#       with:
+#         repository: 'maxGraph/maxGraph'
+#     - name: Setup node
+#       uses: actions/setup-node@v3
+#       with:
+#         node-version-file: '.nvmrc'
+#     - name: Install dependencies
+#       run: npm install
+#     - name: Build package
+#       working-directory: packages/core
+#       run: npm pack
+#     - name: Upload npm package
+#       uses: actions/upload-artifact@v3
+#       with:
+#         name: maxgraph-npm-package
+#         path: |
+#           packages/core/maxgraph-core-*.tgz
 
-  build_example:
+  build_projects:
     runs-on: ubuntu-22.04
-    needs: [build_maxgraph_package]
+#    needs: [build_maxgraph_package]
     strategy:
       # don't cancel running jobs even if one fails
       fail-fast: false
       matrix:
         project: [parcel-ts, rollup-ts, vitejs-ts]
-        npm-package: ['release', 'development']
+        npm-package: ['release']
+#        npm-package: ['release', 'development']
     defaults:
       run:
         working-directory: ${{github.workspace}}/projects/${{matrix.project}}
@@ -78,3 +79,71 @@ jobs:
         run: npm install ${{steps.download.outputs.download-path}}/maxgraph-core*.tgz
       - name: Build project
         run: npm run build
+      - name: Upload project archive
+        if: ${{ matrix.npm-package == 'release' }}
+#        if: github.event_name == 'pull_request'
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{matrix.project}}
+          path: ${{github.workspace}}/projects/${{matrix.project}}/dist
+
+# bundle everything in a single bundle + create home page
+  pr_preview:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-22.04
+    needs: 'build_projects'
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v3
+        with:
+          path: tmp
+      - name: Display structure of downloaded files
+        run: ls -lhR
+        working-directory: tmp
+      - name: Build the final directories layout
+        run: |
+          mkdir -p build
+          cp -R tmp build
+      - name: List projects that will be referenced in the home page
+        id: list_projects
+        run: |
+          # for the ls option, see https://serverfault.com/a/1095912
+          echo "projects_path=$(ls -xw0 build/)" >> $GITHUB_OUTPUT
+      - name: Create the home page
+        uses: actions/github-script@v6
+        env:
+          PR_NUMBER: ${{github.event.pull_request.number}}
+          PR_URL: ${{github.server_url}}/${{github.repository}}/pull/${{github.event.pull_request.number}}
+          PROJECTS_PATH: ${{ steps.list_projects.outputs.projects_path }}
+        with:
+          script: |
+            const {PR_NUMBER, PR_URL, PROJECTS_PATH} = process.env;
+            let htmlContent = `<!DOCTYPE html>
+            <html lang="en">
+            <head>
+            <meta charset="UTF-8"/>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+            <title>Examples of maxGraph projects for PR #${PR_NUMBER}</title>
+            </head>
+            <body>
+            <h1>Examples of <code>maxGraph</code> projects for <a href="${PR_URL}">PR #${PR_NUMBER}</a></h1>
+            <p>
+            Projects built using the <a href="https://github.com/maxGraph/maxGraph/releases/latest" target="_blank">latest released version</a> of <code>maxGraph</code>
+            <ul>
+            @projects@
+            </ul>
+            </body>
+            </html>
+            `
+            htmlContent = htmlContent.replaceAll('@projects@', PROJECTS_PATH.split(' ').filter(name => name.trim() !== '').map(name => `<li><a href="${name}/index.html" target="_blank">${name}</a></li>`).join('\n'));
+            console.info('Generated page', htmlContent);
+            // Create the file
+            require('fs').writeFileSync('build/index.html', htmlContent);
+      - name: Display the final structure of files
+        run: |
+          ls -lhR build
+      - name: Upload artifact (PR)
+        uses: actions/upload-artifact@v3
+        with:
+          name: all-typescript-projects-${{github.sha}}
+          path: build
