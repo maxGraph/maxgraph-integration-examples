@@ -9,7 +9,7 @@ const production = !process.env.ROLLUP_WATCH;
 export default {
 	input: 'src/main.ts',
 	output: {
-		file: 'public/bundle.js',
+		file: 'dist/bundle.js',
 		format: 'es',
 		sourcemap: true
 	},
