@@ -75,8 +75,6 @@ jobs:
         with:
           install-command: npm ci --prefer-offline --audit false --ignore-scripts
           working-directory: ${{github.workspace}}/projects/${{matrix.project}}
-      - name: Install dependencies
-        run: npm install
       - name: Install maxgraph development npm package
         if: ${{ matrix.npm-package == 'development' }}
         # use wildcard as the file contains the version, and we don't know it
