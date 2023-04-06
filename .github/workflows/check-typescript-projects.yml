@@ -103,7 +103,7 @@ jobs:
       - name: Build the final directories layout
         run: |
           mkdir -p build
-          cp -R tmp build
+          cp -R tmp/* build
       - name: List projects that will be referenced in the home page
         id: list_projects
         run: |
