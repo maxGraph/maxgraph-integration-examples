@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "parcel index.html",
-    "build": "tsc && parcel build index.html"
+    "build": "tsc && parcel build --public-url ./ index.html"
   },
   "dependencies": {
     "@maxgraph/core": "0.1.0"

@@ -9,18 +9,14 @@ on:
     paths:
       - '.github/workflows/check-typescript-projects.yml'
       - '.nvmrc'
-      - 'projects/parcel-ts/**/*'
-      - 'projects/rollup-ts/**/*'
-      - 'projects/vitejs-ts/**/*'
+      - 'projects/**/*'
   pull_request:
     branches:
       - main
     paths:
       - '.github/workflows/check-typescript-projects.yml'
       - '.nvmrc'
-      - 'projects/parcel-ts/**/*'
-      - 'projects/rollup-ts/**/*'
-      - 'projects/vitejs-ts/**/*'
+      - 'projects/**/*'
 
 jobs:
   build_maxgraph_package:
@@ -45,7 +41,7 @@ jobs:
          path: |
            packages/core/maxgraph-core-*.tgz
 
-  build_example:
+  build_projects:
     runs-on: ubuntu-22.04
     needs: [build_maxgraph_package]
     strategy:
@@ -81,3 +77,95 @@ jobs:
         run: npm install ${{steps.download.outputs.download-path}}/maxgraph-core*.tgz
       - name: Build project
         run: npm run build
+      - name: Upload project archive
+        if: ${{ matrix.npm-package == 'release' }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{matrix.project}}
+          path: ${{github.workspace}}/projects/${{matrix.project}}/dist
+
+# bundle everything in a single bundle + create home page
+  create_all-in-one_artifact:
+    runs-on: ubuntu-22.04
+    needs: 'build_projects'
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v3
+        with:
+          path: tmp
+      - name: Display structure of downloaded files after removing maxgraph-npm-package
+        run: |
+          rm -rf maxgraph-npm-package
+          ls -lhR
+        working-directory: tmp
+      - name: Build the final directories layout
+        run: |
+          mkdir -p build
+          cp -R tmp/* build
+      - name: List projects that will be referenced in the home page
+        id: list_projects
+        run: |
+          # for the ls option, see https://serverfault.com/a/1095912
+          echo "projects_path=$(ls -xw0 build/)" >> $GITHUB_OUTPUT
+      - name: Create the home page
+        uses: actions/github-script@v6
+        env:
+          PROJECTS_PATH: ${{ steps.list_projects.outputs.projects_path }}
+        with:
+          script: |
+            const {PROJECTS_PATH} = process.env;
+            const projectsListing = PROJECTS_PATH.split(' ').filter(name => name.trim() !== '').map(name => `<li><a href="${name}/index.html" target="_blank">${name}</a></li>`).join('\n');
+            
+            let htmlContent = `<!DOCTYPE html>
+            <html lang="en">
+            <head>
+            <meta charset="UTF-8"/>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+            <title>Examples of maxGraph projects</title>
+            </head>
+            <body>
+            <h1>Examples of <code>maxGraph</code> projects</h1>
+            <p>
+            Projects built using the <a href="https://github.com/maxGraph/maxGraph/releases/latest" target="_blank">latest released version</a> of <code>maxGraph</code>
+            <ul>
+            ${projectsListing}
+            </ul>
+            </body>
+            </html>
+            `
+            
+            console.info('Generated page', htmlContent);
+            // Create the file
+            require('fs').writeFileSync('build/index.html', htmlContent);
+      - name: Display the final structure of files
+        run: |
+          ls -lhR build
+      - name: Upload artifact not for GitHub Pages
+        if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') != 'true'
+        uses: actions/upload-artifact@v3
+        with:
+          name: all-typescript-projects-${{github.sha}}
+          path: build
+      - name: Upload artifact for GitHub Pages
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: build
+
+  deploy_gh_pages:
+    needs: create_all-in-one_artifact
+    if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch' ) && github.event.ref == 'refs/heads/main'
+    # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
+    permissions:
+      contents: read
+      pages: write      # to deploy to Pages
+      id-token: write   # to verify the deployment originates from an appropriate source
+    # Deploy to the github-pages environment
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
