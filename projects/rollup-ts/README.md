@@ -19,7 +19,7 @@ The `public/index.html` file contains a `<script src='bundle.js'>` tag, which me
 The `rollup.config.js` file tells Rollup how to create this bundle, starting with `src/main.ts` and including all its dependencies,
 including `mxGraph`.
 
-`npm run build` builds the application to `public/bundle.js`, along with a sourcemap file for debugging.
+`npm run build` builds the application to `dist`, along with a sourcemap file for debugging.
 
 `npm start` launches a server, using [serve](https://github.com/zeit/serve). Navigate to http://localhost:3000/.
 
