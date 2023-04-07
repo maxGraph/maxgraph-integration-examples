@@ -90,8 +90,10 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           path: tmp
-      - name: Display structure of downloaded files
-        run: ls -lhR
+      - name: Display structure of downloaded files after removing maxgraph-npm-package
+        run: |
+          rm -rf maxgraph-npm-package
+          ls -lhR
         working-directory: tmp
       - name: Build the final directories layout
         run: |
