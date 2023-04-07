@@ -67,7 +67,10 @@ jobs:
         with:
           node-version-file: '.nvmrc'
       - name: Install dependencies
-        run: npm install
+        uses: bahmutov/npm-install@v1
+        with:
+          install-command: npm ci --prefer-offline --audit false --ignore-scripts
+          working-directory: ${{github.workspace}}/projects/${{matrix.project}}
       - name: Install maxgraph development npm package
         if: ${{ matrix.npm-package == 'development' }}
         # use wildcard as the file contains the version, and we don't know it

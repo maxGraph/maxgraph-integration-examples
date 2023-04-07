@@ -11,7 +11,7 @@
     "@maxgraph/core": "0.1.0"
   },
   "devDependencies": {
-    "typescript": "~4.9.4",
-    "vite": "~4.0.4"
+    "typescript": "~5.0.3",
+    "vite": "~4.2.1"
   }
 }
