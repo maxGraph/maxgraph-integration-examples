@@ -110,36 +110,30 @@ jobs:
       - name: Create the home page
         uses: actions/github-script@v6
         env:
-          IS_PR: ${{github.event_name == 'pull_request'}}
-          PR_NUMBER: ${{github.event.pull_request.number}}
-          PR_URL: ${{github.server_url}}/${{github.repository}}/pull/${{github.event.pull_request.number}}
           PROJECTS_PATH: ${{ steps.list_projects.outputs.projects_path }}
         with:
           script: |
-            const {IS_PR, PR_NUMBER, PR_URL, PROJECTS_PATH} = process.env;
+            const {PROJECTS_PATH} = process.env;
+            const projectsListing = PROJECTS_PATH.split(' ').filter(name => name.trim() !== '').map(name => `<li><a href="${name}/index.html" target="_blank">${name}</a></li>`).join('\n');
+            
             let htmlContent = `<!DOCTYPE html>
             <html lang="en">
             <head>
             <meta charset="UTF-8"/>
             <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-            <title>Examples of maxGraph projects @titlePrContent@</title>
+            <title>Examples of maxGraph projects</title>
             </head>
             <body>
-            <h1>Examples of <code>maxGraph</code> projects @h1PrContent@</h1>
+            <h1>Examples of <code>maxGraph</code> projects</h1>
             <p>
             Projects built using the <a href="https://github.com/maxGraph/maxGraph/releases/latest" target="_blank">latest released version</a> of <code>maxGraph</code>
             <ul>
-            @projects@
+            ${projectsListing}
             </ul>
             </body>
             </html>
             `
-            const titlePrContent = IS_PR === 'true' ? `for PR #${PR_NUMBER}` : '';
-            const h1PrContent = IS_PR === 'true' ? `for <a href="${PR_URL}">PR #${PR_NUMBER}</a>` : '';
             
-            htmlContent = htmlContent.replaceAll('@titlePrContent@', titlePrContent);
-            htmlContent = htmlContent.replaceAll('@h1PrContent@', h1PrContent);
-            htmlContent = htmlContent.replaceAll('@projects@', PROJECTS_PATH.split(' ').filter(name => name.trim() !== '').map(name => `<li><a href="${name}/index.html" target="_blank">${name}</a></li>`).join('\n'));
             console.info('Generated page', htmlContent);
             // Create the file
             require('fs').writeFileSync('build/index.html', htmlContent);
@@ -152,4 +146,4 @@ jobs:
         with:
           name: all-typescript-projects-${{github.sha}}
           path: build
-# TODO artifact for gh pages
+# TODO artifact for gh pages push or workflow_dispatch
