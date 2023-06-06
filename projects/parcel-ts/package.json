@@ -10,7 +10,7 @@
     "@maxgraph/core": "0.1.0"
   },
   "devDependencies": {
-    "parcel": "~2.8.3",
-    "typescript": "~5.0.3"
+    "parcel": "~2.9.1",
+    "typescript": "~5.1.3"
   }
 }
