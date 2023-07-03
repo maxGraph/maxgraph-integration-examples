@@ -1,7 +1,6 @@
 changelog:
   exclude:
     labels:
-      - dependencies
       - skip-changelog
   categories:
     - title: 🎉 New Features
@@ -13,6 +12,9 @@ changelog:
     - title: 📝 Documentation
       labels:
         - documentation
+    - title: 📦 Dependencies
+      labels:
+        - dependencies
     - title: ⚙️ Refactor
       labels:
         - refactor
