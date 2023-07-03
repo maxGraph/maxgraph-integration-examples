@@ -18,6 +18,7 @@ If the Node version is not installed, `nvm` will state how to install the requir
 
 ### Available projects
 
+- [TypeScript with Lit](./projects/lit-ts/README.md)
 - [TypeScript with Parcel](./projects/parcel-ts/README.md)
 - [TypeScript with Rollup](./projects/rollup-ts/README.md)
 - [TypeScript with ViteJs](./projects/vitejs-ts/README.md)
