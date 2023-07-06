@@ -28,7 +28,7 @@ If the Node version is not installed, `nvm` will state how to install the requir
 
 ### <a id="maxgraph-dev-version"></a> Use the maxGraph development version
 
-**Note**: the `maxGraph` development version is tested in a GitHub Workflow that uses the procedure explained below.
+**Note**: the `maxGraph` development version is tested in a [GitHub Workflow](./.github/workflows/check-typescript-projects.yml) that uses the procedure explained below.
 
 Build [maxGraph](https://github.com/maxGraph/maxGraph/) locally:
   - from the `maxGraph` project root, run: `npm install`
