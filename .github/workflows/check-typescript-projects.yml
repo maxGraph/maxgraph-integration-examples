@@ -19,7 +19,7 @@ on:
       - 'projects/**/*'
 
 jobs:
-  build_maxgraph_package:
+  build_maxgraph_dev_package:
     runs-on: ubuntu-22.04
     steps:
      - uses: actions/checkout@v3
@@ -43,7 +43,7 @@ jobs:
 
   build_projects:
     runs-on: ubuntu-22.04
-    needs: [build_maxgraph_package]
+    needs: [build_maxgraph_dev_package]
     strategy:
       # don't cancel running jobs even if one fails
       fail-fast: false
