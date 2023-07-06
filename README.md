@@ -2,6 +2,8 @@
 
 Demonstrate how to integrate [maxGraph](https://github.com/maxGraph/maxGraph/) in projects.
 
+⏩ Find the live demo at https://maxgraph.github.io/maxgraph-integration-examples/
+
 ## Getting started
 
 ### Setup
@@ -18,12 +20,15 @@ If the Node version is not installed, `nvm` will state how to install the requir
 
 ### Available projects
 
+- [TypeScript with Lit](./projects/lit-ts/README.md)
 - [TypeScript with Parcel](./projects/parcel-ts/README.md)
 - [TypeScript with Rollup](./projects/rollup-ts/README.md)
 - [TypeScript with ViteJs](./projects/vitejs-ts/README.md)
 
 
 ### <a id="maxgraph-dev-version"></a> Use the maxGraph development version
+
+**Note**: the `maxGraph` development version is tested in a [GitHub Workflow](./.github/workflows/check-typescript-projects.yml) that uses the procedure explained below.
 
 Build [maxGraph](https://github.com/maxGraph/maxGraph/) locally:
   - from the `maxGraph` project root, run: `npm install`
