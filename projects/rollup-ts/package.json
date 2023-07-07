@@ -11,7 +11,7 @@
     "start": "serve public"
   },
   "dependencies": {
-    "@maxgraph/core": "0.2.1"
+    "@maxgraph/core": "0.3.0"
   },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "~15.1.0",
