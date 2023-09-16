@@ -1,0 +1,8 @@
+{
+  "name": "maxgraph-integration-examples",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "./projects/*"
+  ]
+}
