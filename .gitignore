@@ -106,11 +106,6 @@ dist
 # IDE
 .idea
 *.iml
-/.parcel-cache/0fd0139e561636b5
-/.parcel-cache/6475b362499fb946.txt
-/.parcel-cache/68071e0bc3d730cd
-/.parcel-cache/a384f0ec43b99fbc
-/.parcel-cache/data.mdb
-/.parcel-cache/e8686ba4ca2ce328
-/.parcel-cache/fec95e83e44b5a3c
-/.parcel-cache/lock.mdb
+
+# Build directories
+.parcel-cache
