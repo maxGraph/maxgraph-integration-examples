@@ -3,6 +3,12 @@
   "private": true,
   "type": "module",
   "workspaces": [
-    "./projects/*"
-  ]
+    "./projects/lit-ts"
+  ],
+  "dependencies": {
+    "@maxgraph/core": "0.3.0"
+  },
+  "devDependencies": {
+    "typescript": "~5.1.6"
+  }
 }
