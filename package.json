@@ -3,9 +3,7 @@
   "private": true,
   "type": "module",
   "workspaces": [
-    "./projects/lit-ts",
-    "./projects/parcel-ts",
-    "./projects/vitejs-ts"
+    "./projects/*"
   ],
   "dependencies": {
     "@maxgraph/core": "0.3.0"

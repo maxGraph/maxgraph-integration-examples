@@ -1,7 +1,6 @@
 {
   "name": "maxgraph-ts-example-built-with-rollup",
   "private": true,
-  "version": "0.0.0",
   "scripts": {
     "build": "npm-run-all --sequential build:*",
     "build:bundle": "tsc && rollup -c",
@@ -9,9 +8,6 @@
     "watch": "rollup -c -w",
     "dev": "npm-run-all --parallel start watch",
     "start": "serve public"
-  },
-  "dependencies": {
-    "@maxgraph/core": "0.3.0"
   },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "~15.2.3",
