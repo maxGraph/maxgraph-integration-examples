@@ -1,17 +1,12 @@
 {
   "name": "maxgraph-ts-example-built-with-vite",
   "private": true,
-  "version": "0.0.0",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build --base ./",
     "preview": "vite preview"
   },
-  "dependencies": {
-    "@maxgraph/core": "0.3.0"
-  },
   "devDependencies": {
-    "typescript": "~5.2.2",
     "vite": "~4.4.11"
   }
 }
