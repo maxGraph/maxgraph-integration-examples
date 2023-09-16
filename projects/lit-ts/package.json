@@ -1,7 +1,6 @@
 {
   "name": "maxgraph-ts-example-integrating-in-lit",
   "private": true,
-  "version": "0.0.0",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build --base ./",
