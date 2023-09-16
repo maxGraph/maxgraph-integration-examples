@@ -3,7 +3,8 @@
   "private": true,
   "type": "module",
   "workspaces": [
-    "./projects/lit-ts"
+    "./projects/lit-ts",
+    "./projects/parcel-ts"
   ],
   "dependencies": {
     "@maxgraph/core": "0.3.0"
