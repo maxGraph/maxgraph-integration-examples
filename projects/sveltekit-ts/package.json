@@ -9,9 +9,6 @@
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
   },
-  "dependencies": {
-    "@maxgraph/core": "0.4.0"
-  },
   "devDependencies": {
     "@sveltejs/adapter-auto": "~2.1.0",
     "@sveltejs/kit": "~1.25.2",
