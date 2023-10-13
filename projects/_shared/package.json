@@ -1,0 +1,9 @@
+{
+  "name": "maxgraph-ts-example-shared-code",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsc --watch",
+    "build": "tsc"
+  }
+}
