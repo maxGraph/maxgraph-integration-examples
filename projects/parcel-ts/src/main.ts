@@ -2,7 +2,7 @@
 
 import '@maxgraph/core/css/common.css';
 import 'maxgraph-examples-shared/css/rubber-band.css'
-import './style.css';
+import 'maxgraph-examples-shared/css/general-style.css'
 
 import {Client} from '@maxgraph/core';
 import {initializeGraph} from 'maxgraph-examples-shared';
