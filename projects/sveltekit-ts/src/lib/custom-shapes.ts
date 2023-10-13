@@ -2,10 +2,10 @@
 
 import type { ColorValue } from '@maxgraph/core';
 import {
-  AbstractCanvas2D,
+  type AbstractCanvas2D,
   CellRenderer,
   EllipseShape,
-  Rectangle,
+  type Rectangle,
   RectangleShape,
 } from '@maxgraph/core';
 
