@@ -6,8 +6,10 @@
     "dev": "tsc --watch",
     "build": "tsc"
   },
-  "exports": {
-    ".": "./lib/index.js",
-    "./package.json": "./package.json"
-  }
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "files": [
+    "css",
+    "lib"
+  ]
 }
