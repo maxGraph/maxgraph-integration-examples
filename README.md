@@ -17,6 +17,10 @@ nvm use
 
 If the Node version is not installed, `nvm` will state how to install the required version.
 
+Install dependencies by running
+```shell
+npm install
+```
 
 ### Available projects
 

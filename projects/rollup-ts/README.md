@@ -9,9 +9,9 @@ Adapted from https://github.com/typed-mxgraph/typed-mxgraph-example-bundled-with
 
 ### Setup
 
-From the project root, run `npm install`.
+From the repository root, run `npm install`. For more details, see the [root README](../../README.md#setup).
 
-If you want to use the maxGraph development version (built locally), see the README about maxGraph integration.
+If you want to use the maxGraph development version (built locally), see the [root README](../../README.md#maxgraph-dev-version) about maxGraph integration.
 
 ### Running the project
 
@@ -19,11 +19,8 @@ The `public/index.html` file contains a `<script src='bundle.js'>` tag, which me
 The `rollup.config.js` file tells Rollup how to create this bundle, starting with `src/main.ts` and including all its dependencies,
 including `mxGraph`.
 
-`npm run build` builds the application to `dist`, along with a sourcemap file for debugging.
-
-`npm start` launches a server, using [serve](https://github.com/zeit/serve). Navigate to http://localhost:3000/.
-
-`npm run watch` will continually rebuild the application as your source files change.
-
-`npm run dev` will run `npm start` and `npm run watch` in parallel.
-
+From the project root
+- `npm run build` builds the application to `dist`, along with a sourcemap file for debugging.
+- `npm start` launches a server, using [serve](https://github.com/zeit/serve). Navigate to http://localhost:3000/.
+- `npm run watch` will continually rebuild the application as your source files change.
+- `npm run dev` will run `npm start` and `npm run watch` in parallel.
