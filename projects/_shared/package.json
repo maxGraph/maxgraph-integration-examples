@@ -1,5 +1,5 @@
 {
-  "name": "maxgraph-ts-example-shared-code",
+  "name": "maxgraph-examples-shared",
   "private": true,
   "type": "module",
   "scripts": {
