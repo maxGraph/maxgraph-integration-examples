@@ -22,6 +22,10 @@ Install dependencies by running
 npm install
 ```
 
+Build the "shared" package:
+- this package is used in all projects, so it must be built first.
+- for more details, see its [dedicated README](projects/_shared/README.md).
+
 ### Available projects
 
 - [TypeScript with Lit](./projects/lit-ts/README.md)

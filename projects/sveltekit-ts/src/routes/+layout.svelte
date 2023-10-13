@@ -1,6 +1,7 @@
 <script lang="ts">
   import '@maxgraph/core/css/common.css';
-  import '../style.css';
+  import 'maxgraph-examples-shared/css/rubber-band.css'
+  import 'maxgraph-examples-shared/css/general-style.css'
   import { Client } from '@maxgraph/core';
 </script>
 
