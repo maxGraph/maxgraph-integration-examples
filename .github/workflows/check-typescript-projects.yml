@@ -81,7 +81,7 @@ jobs:
         # use wildcard as the file contains the version, and we don't know it
         run: npm install ${{steps.download.outputs.download-path}}/maxgraph-core*.tgz
       - name: Build project
-        run: npm run build -w projects/${{matrix.project}}
+        run: npm run build -w projects/_shared -w projects/${{matrix.project}}
       - name: Upload project archive
         if: ${{ matrix.npm-package == 'release' }}
         uses: actions/upload-artifact@v3
