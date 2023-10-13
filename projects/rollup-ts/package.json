@@ -1,6 +1,7 @@
 {
   "name": "maxgraph-ts-example-built-with-rollup",
   "private": true,
+  "type": "module",
   "scripts": {
     "build": "npm-run-all --sequential build:*",
     "build:bundle": "tsc && rollup -c",
