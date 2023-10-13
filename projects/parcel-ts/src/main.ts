@@ -12,6 +12,4 @@ const footer = document.querySelector<HTMLElement>('footer')!;
 footer.innerText = `Built with maxGraph ${Client.VERSION}`;
 
 // Creates the graph inside the given container
-const container = document.querySelector<HTMLElement>('#graph-container')!;
-
-initializeGraph(container);
+initializeGraph(<HTMLElement>document.querySelector('#graph-container'));
