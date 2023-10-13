@@ -1,5 +1,3 @@
-// TODO fully duplicated with other projects
-
 import '@maxgraph/core/css/common.css';
 import 'maxgraph-examples-shared/css/rubber-band.css'
 import 'maxgraph-examples-shared/css/general-style.css'
