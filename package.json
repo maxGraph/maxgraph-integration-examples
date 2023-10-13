@@ -1,0 +1,14 @@
+{
+  "name": "maxgraph-integration-examples",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "./projects/*"
+  ],
+  "dependencies": {
+    "@maxgraph/core": "0.3.0"
+  },
+  "devDependencies": {
+    "typescript": "~5.2.2"
+  }
+}
