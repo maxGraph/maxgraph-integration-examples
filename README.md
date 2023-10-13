@@ -23,8 +23,8 @@ If the Node version is not installed, `nvm` will state how to install the requir
 - [TypeScript with Lit](./projects/lit-ts/README.md)
 - [TypeScript with Parcel](./projects/parcel-ts/README.md)
 - [TypeScript with Rollup](./projects/rollup-ts/README.md)
-- [TypeScript with ViteJs](./projects/vitejs-ts/README.md)
 - [TypeScript with SvelteKit](./projects/sveltekit-ts/README.md)
+- [TypeScript with ViteJs](./projects/vitejs-ts/README.md)
 
 ### <a id="maxgraph-dev-version"></a> Use the maxGraph development version
 
