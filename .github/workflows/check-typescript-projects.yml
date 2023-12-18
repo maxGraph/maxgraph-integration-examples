@@ -39,7 +39,7 @@ jobs:
        working-directory: packages/core
        run: npm pack
      - name: Upload npm package
-       uses: actions/upload-artifact@v3
+       uses: actions/upload-artifact@v4
        with:
          name: maxgraph-npm-package
          path: |
@@ -84,7 +84,7 @@ jobs:
         run: npm run build -w projects/_shared -w projects/${{matrix.project}}
       - name: Upload project archive
         if: ${{ matrix.npm-package == 'release' }}
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{matrix.project}}
           path: ${{github.workspace}}/projects/${{matrix.project}}/dist
@@ -147,7 +147,7 @@ jobs:
           ls -lhR build
       - name: Upload artifact not for GitHub Pages
         if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') != 'true'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: all-typescript-projects-${{github.sha}}
           path: build
