@@ -48,3 +48,16 @@ In this folder where you clone the `maxgraph-integration-examples` project, go t
   Repack of maxgraph is automatically available in the examples
   - alternative: `npm install <path_to_locally_installed_maxgraph>/packages/core/maxgraph-core-0.1.0.tgz`. This changes
   the package.json file. You must run this command again each time you rebuild the maxgraph npm package.
+
+
+## Release
+
+The versioning in this repository follow the versioning of `maxGraph`. For example, version _0.5.0_ uses `maxGraph` _0.5.0_.
+
+So, prior releasing a new version of this version, the maxGraph version must have been updated:
+  - Dependencies in this repository are automatically updated by Dependabot, so you can trigger a new Dependabot run or wait for the next scheduled Dependabot run for this update to take place.
+  - Validate that the examples work: use the artifact built by GitHub Actions to test the various applications locally.
+
+Once maxGraph has been updated, the release can be done by running the [release workflow](https://github.com/maxGraph/maxgraph-integration-examples/actions/workflows/release.yml) which:
+  - creates the Git tag
+  - publishes a GitHub release including the [automatically generated release notes](https://docs.github.com/en/repositories/releasing-projects-on-github/automatically-generated-release-notes).

@@ -1,0 +1,26 @@
+name: Release
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version in the x.y.z form. Must match a released version of maxGraph'
+        required: true
+
+env:
+  VERSION: ${{ inputs.version }}
+  TAG: v${{ inputs.version }}
+
+jobs:
+  create_release:
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: write # create the GH release
+    steps:
+      - name: Create release
+        uses: ncipollo/release-action@v1
+        with:
+          body: |
+            Relates to [maxGraph ${{ env.VERSION }}](https://github.com/maxGraph/maxGraph/releases/tag/${{ env.TAG }}).
+          generateReleaseNotes: true
+          name: ${{ env.VERSION }}
+          tag: ${{ env.TAG }}
