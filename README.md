@@ -52,21 +52,12 @@ In this folder where you clone the `maxgraph-integration-examples` project, go t
 
 ## Release
 
-Versioning scheme: follow version of maxGraph. For example, 0.5.0 uses maxgraph 0.5.0
+The versioning in this repository follow the versioning of `maxGraph`. For example, version _0.5.0_ uses `maxGraph` _0.5.0_.
 
-**TODO update the following**
+So, prior releasing a new version of this version, the maxGraph version must have been updated:
+  - Dependencies in this repository are automatically updated by Dependabot, so you can trigger a new Dependabot run or wait for the next scheduled Dependabot run for this update to take place.
+  - Validate that the examples work: use the artifact built by GitHub Actions to test the various applications locally.
 
-Once done, create a Pull Request in the [integration examples repository](https://github.com/maxGraph/maxgraph-integration-examples) to use the new release.
-- Dependencies in this repository are automatically updated by Dependabot, so you can trigger a new Dependabot run or wait for the next scheduled Dependabot run for this update to take place.
-- Validate that the examples work: use the artifact built by GitHub Actions to test the various applications locally.
-
-Then, create a [new draft release](https://github.com/maxGraph/maxgraph-integration-examples/releases):
-- name: use the same version as in `maxGraph`, like `0.2.1` 
-- tag: use the version prefixed with v, like `v0.2.1`
-- save it as a draft
-
-Generate the list of the major changes by using the [automatically generated release notes](https://docs.github.com/en/repositories/releasing-projects-on-github/automatically-generated-release-notes).
-
-Also add links to the releases previously created for `maxGraph`. As an example, see the release of the [0.2.1 version](https://github.com/maxGraph/maxgraph-integration-examples/releases/tag/v0.2.1).
-
-Publish the release.
+Once maxGraph has been updated, the release can be done by running the [release workflow](https://github.com/maxGraph/maxgraph-integration-examples/actions/workflows/release.yml) which:
+  - creates the Git tag
+  - publishes a GitHub release including the [automatically generated release notes](https://docs.github.com/en/repositories/releasing-projects-on-github/automatically-generated-release-notes).
