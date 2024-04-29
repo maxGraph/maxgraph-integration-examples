@@ -9,6 +9,6 @@
     "@maxgraph/core": "0.10.1"
   },
   "devDependencies": {
-    "typescript": "~5.3.3"
+    "typescript": "~5.4.5"
   }
 }
