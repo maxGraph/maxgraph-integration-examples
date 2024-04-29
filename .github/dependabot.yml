@@ -19,6 +19,10 @@ updates:
           - "svelte*"
       development-dependencies:
         dependency-type: "development"
+        exclude-patterns:
+          # updated in a dedicated group
+          - "@sveltejs/"
+          - "svelte*"
 
   - package-ecosystem: "github-actions"
     directory: "/"
