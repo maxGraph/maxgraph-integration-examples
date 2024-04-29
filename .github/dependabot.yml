@@ -13,6 +13,10 @@ updates:
       prefix: "chore(deps)"
       prefix-development: "chore(deps-dev)"
     groups:
+      svelte:
+        patterns:
+          - "@sveltejs/"
+          - "svelte*"
       development-dependencies:
         dependency-type: "development"
 
