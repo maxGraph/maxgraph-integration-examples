@@ -15,13 +15,13 @@ updates:
     groups:
       svelte:
         patterns:
-          - "@sveltejs/"
+          - "@sveltejs/*"
           - "svelte*"
       development-dependencies:
         dependency-type: "development"
         exclude-patterns:
           # updated in a dedicated group
-          - "@sveltejs/"
+          - "@sveltejs/*"
           - "svelte*"
 
   - package-ecosystem: "github-actions"
