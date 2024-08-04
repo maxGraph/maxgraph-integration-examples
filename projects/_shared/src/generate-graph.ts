@@ -1,4 +1,5 @@
 import {
+    constants,
     Graph,
     InternalEvent,
     Perimeter,
@@ -55,10 +56,7 @@ export const initializeGraph = (container: HTMLElement) => {
         );
         // use the legacy insertEdge method
         graph.insertEdge(parent, null, 'an orthogonal style edge', vertex01, vertex02, {
-            // TODO cannot use constants.EDGESTYLE.ORTHOGONAL
-            // TS2748: Cannot access ambient const enums when the '--isolatedModules' flag is provided.
-            // See https://github.com/maxGraph/maxGraph/issues/205
-            edgeStyle: 'orthogonalEdgeStyle',
+            edgeStyle: constants.EDGESTYLE.ORTHOGONAL,
             rounded: true,
         });
 
