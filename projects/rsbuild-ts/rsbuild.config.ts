@@ -2,7 +2,7 @@ import { defineConfig } from '@rsbuild/core';
 
 export default defineConfig({
     html: {
-        favicon: './assets/favicon-128x128.png',
+        favicon: './src/assets/favicon-128x128.png',
         title: 'maxGraph Rsbuild TypeScript example',
     },
     output: {
