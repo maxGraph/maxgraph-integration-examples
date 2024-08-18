@@ -3,6 +3,7 @@ import { defineConfig } from '@rsbuild/core';
 export default defineConfig({
     html: {
         favicon: './assets/favicon-128x128.png',
+        title: 'maxGraph Rsbuild TypeScript example',
     },
     // enforce a chunk per module to better track the size of the maxGraph chunk.
     // We don't need it here because we have a single dependency, so the chunk automatically generated only includes the maxGraph module.
