@@ -56,6 +56,7 @@ jobs:
           - lit-ts
           - parcel-ts
           - rollup-ts
+          - rsbuild-ts
           - sveltekit-ts
           - vitejs-ts
         npm-package: ['release', 'development']
