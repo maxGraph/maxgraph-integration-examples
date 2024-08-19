@@ -1,0 +1,11 @@
+{
+  "name": "maxgraph-ts-example-built-with-rsbuild",
+  "scripts": {
+    "dev": "rsbuild dev --open",
+    "build": "rsbuild build",
+    "preview": "rsbuild preview"
+  },
+  "devDependencies": {
+    "@rsbuild/core": "1.0.1-beta.14"
+  }
+}
