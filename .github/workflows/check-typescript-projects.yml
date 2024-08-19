@@ -120,7 +120,7 @@ jobs:
         with:
           script: |
             const {PROJECTS_PATH} = process.env;
-            const projectsListing = PROJECTS_PATH.split(' ').filter(name => name.trim() !== '').map(name => `<li><a href="${name}/index.html" target="_blank">${name}</a></li>`).join('\n');
+            const projectsListing = PROJECTS_PATH.split(' ').filter(name => name.trim() !== '').map(name => `<li><a href="${name}/" target="_blank">${name}</a></li>`).join('\n');
             
             let htmlContent = `<!DOCTYPE html>
             <html lang="en">
