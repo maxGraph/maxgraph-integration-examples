@@ -16,7 +16,8 @@ const config = {
 			// In https://kit.svelte.dev/docs/adapter-static#github-pages, the page '404.html' is used as a fallback.
 			// We cannot use it here because the app is deployed to a subdirectory. The 404 page for the deployment should be placed in the root of the deployment.
 			// The configured callback lets access to https://maxgraph.github.io/maxgraph-integration-examples/maxgraph-integration-examples/sveltekit-ts
-			fallback: 'index.html'
+			fallback: 'index.html',
+			pages: 'dist',
 		}),
 		paths: {
 			// We are deploying to a subdirectory as we have several applications in the same repository
