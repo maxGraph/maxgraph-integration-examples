@@ -5,7 +5,11 @@
   import { Client } from '@maxgraph/core';
 </script>
 
-<h1>maxGraph SvelteKit-TypeScript example</h1>
+<svelte:head>
+  <title>maxGraph SvelteKit TypeScript example</title>
+</svelte:head>
+
+<h1>maxGraph SvelteKit TypeScript example</h1>
 <p>Display a test graph. Activated behaviours:</p>
 <ul>
   <li>Panning: use mouse right button</li>
