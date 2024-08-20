@@ -1,6 +1,8 @@
 import {
     constants,
+    getDefaultPlugins,
     Graph,
+    GraphDataModel,
     InternalEvent,
     Perimeter,
     RubberBandHandler,
@@ -11,9 +13,14 @@ export const initializeGraph = (container: HTMLElement) => {
     // Disables the built-in context menu
     InternalEvent.disableContextMenu(container);
 
-    const graph = new Graph(container);
+    const graph = new Graph(container, new GraphDataModel(), [
+        ...getDefaultPlugins(),
+        RubberBandHandler, // Enables rubber band selection
+    ]);
     graph.setPanning(true); // Use mouse right button for panning
-    new RubberBandHandler(graph); // Enables rubber band selection
+
+    // Customize the rubber band selection
+    graph.getPlugin<RubberBandHandler>('RubberBandHandler').fadeOut = true;
 
     // shapes and styles
     registerCustomShapes();
@@ -66,7 +73,7 @@ export const initializeGraph = (container: HTMLElement) => {
             value: 'a custom rectangle',
             position: [20, 200],
             size: [100, 100],
-            style: { shape: 'customRectangle' },
+            style: {shape: 'customRectangle'},
         });
         // use the new insertVertex method using position and size parameters
         const vertex12 = graph.insertVertex({
@@ -87,7 +94,7 @@ export const initializeGraph = (container: HTMLElement) => {
             value: 'another edge',
             source: vertex11,
             target: vertex12,
-            style: { endArrow: 'block' },
+            style: {endArrow: 'block'},
         });
     });
 }
