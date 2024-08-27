@@ -13,16 +13,8 @@ updates:
       prefix: "chore(deps)"
       prefix-development: "chore(deps-dev)"
     groups:
-      svelte:
-        patterns:
-          - "@sveltejs/*"
-          - "svelte*"
       development-dependencies:
         dependency-type: "development"
-        exclude-patterns:
-          # updated in a dedicated group
-          - "@sveltejs/*"
-          - "svelte*"
 
   - package-ecosystem: "github-actions"
     directory: "/"
