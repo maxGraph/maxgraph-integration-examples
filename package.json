@@ -6,7 +6,7 @@
     "./projects/*"
   ],
   "dependencies": {
-    "@maxgraph/core": "0.13.1"
+    "@maxgraph/core": "0.14.0"
   },
   "devDependencies": {
     "typescript": "~5.7.2"
