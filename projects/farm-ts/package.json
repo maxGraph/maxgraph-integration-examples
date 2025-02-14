@@ -1,0 +1,16 @@
+{
+  "name": "maxgraph-ts-example-built-with-farm",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "farm",
+    "start": "farm",
+    "build": "farm build",
+    "preview": "farm preview",
+    "clean": "farm clean"
+  },
+  "devDependencies": {
+    "@farmfe/cli": "~1.0.4",
+    "@farmfe/core": "~1.6.6"
+  }
+}
