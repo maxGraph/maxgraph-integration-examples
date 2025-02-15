@@ -28,6 +28,7 @@ Build the "shared" package:
 
 ### Available projects
 
+- [TypeScript with Farm](./projects/farm-ts/README.md)
 - [TypeScript with Lit](./projects/lit-ts/README.md)
 - [TypeScript with Parcel](./projects/parcel-ts/README.md)
 - [TypeScript with Rollup](./projects/rollup-ts/README.md)
