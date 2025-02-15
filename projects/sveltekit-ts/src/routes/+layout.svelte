@@ -1,7 +1,5 @@
 <script lang="ts">
-  import '@maxgraph/core/css/common.css';
-  import 'maxgraph-examples-shared/css/rubber-band.css'
-  import 'maxgraph-examples-shared/css/general-style.css'
+  import 'maxgraph-examples-shared/css/all.css'
   import { Client } from '@maxgraph/core';
 </script>
 
@@ -9,7 +7,7 @@
   <title>maxGraph SvelteKit TypeScript example</title>
 </svelte:head>
 
-<h1>maxGraph SvelteKit TypeScript example</h1>
+<h1>maxGraph <a href="https://svelte.dev/tutorial/kit/introducing-sveltekit" target="_blank" rel="noopener noreferrer">SvelteKit</a> TypeScript example</h1>
 <p>Display a test graph. Activated behaviours:</p>
 <ul>
   <li>Panning: use mouse right button</li>
