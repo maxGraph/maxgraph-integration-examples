@@ -9,7 +9,13 @@ import {
 } from '@maxgraph/core';
 import {registerCustomShapes} from "./custom-shapes";
 
-export const initializeGraph = (container: HTMLElement) => {
+/**
+ * Initializes the graph inside the given container.
+ * @param container if not set, use the element matching the selector '#graph-container'
+ */
+export const initializeGraph = (container?: HTMLElement) => {
+   container ??= document.querySelector<HTMLElement>('#graph-container')!;
+
     // Disables the built-in context menu
     InternalEvent.disableContextMenu(container);
 
