@@ -1,9 +1,9 @@
-import {Client} from "@maxgraph/core";
+import {constants} from "@maxgraph/core";
 
 /** Display the maxGraph version in the footer. */
 const fillFooter = (): void => {
     const footer = document.querySelector<HTMLElement>('footer')!;
-    footer.innerText = `Built with maxGraph ${Client.VERSION}`;
+    footer.innerText = `Built with maxGraph ${constants.VERSION}`;
 };
 
 export type FillMainContainerOptions = {
