@@ -7,6 +7,6 @@
     "build": "tsc && parcel build --public-url ./ index.html"
   },
   "devDependencies": {
-    "parcel": "~2.13.3"
+    "parcel": "~2.14.2"
   }
 }
