@@ -9,4 +9,4 @@
   });
 </script>
 
-<div bind:this={container} id="graph-container" />
+<div bind:this={container} id="graph-container"></div>
