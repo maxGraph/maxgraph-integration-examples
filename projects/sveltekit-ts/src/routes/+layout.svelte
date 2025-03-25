@@ -1,6 +1,6 @@
 <script lang="ts">
   import 'maxgraph-examples-shared/css/all.css'
-  import { Client } from '@maxgraph/core';
+  import { constants } from '@maxgraph/core';
 </script>
 
 <svelte:head>
@@ -16,4 +16,4 @@
 
 <slot />
 <!-- display the maxGraph version in the footer -->
-<footer>Built with maxGraph {Client.VERSION}</footer>
+<footer>Built with maxGraph {constants.VERSION}</footer>
