@@ -11,6 +11,6 @@
   },
   "devDependencies": {
     "@farmfe/cli": "~1.0.4",
-    "@farmfe/core": "~1.7.2"
+    "@farmfe/core": "~1.7.4"
   }
 }
