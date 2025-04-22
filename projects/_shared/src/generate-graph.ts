@@ -1,13 +1,113 @@
 import {
+    type AbstractCanvas2D,
+    CellRenderer,
     constants,
-    getDefaultPlugins,
+    EdgeStyle,
+    EllipseShape,
     Graph,
-    GraphDataModel,
     InternalEvent,
+    MarkerShape,
+    PanningHandler,
     Perimeter,
+    type Point,
     RubberBandHandler,
+    SelectionCellsHandler,
+    SelectionHandler,
+    type Shape,
+    type StyleArrowValue,
+    StyleRegistry,
 } from '@maxgraph/core';
 import {registerCustomShapes} from "./custom-shapes";
+
+
+// TODO remove this when maxGraph 0.18.0 is released. This is duplicated from maxGraph as it is not exported
+const createArrow =
+    (widthFactor: number) =>
+        (
+            canvas: AbstractCanvas2D,
+            _shape: Shape,
+            type: StyleArrowValue,
+            pe: Point,
+            unitX: number,
+            unitY: number,
+            size: number,
+            _source: boolean,
+            sw: number,
+            filled: boolean
+        ) => {
+            // The angle of the forward facing arrow sides against the x axis is
+            // 26.565 degrees, 1/sin(26.565) = 2.236 / 2 = 1.118 ( / 2 allows for
+            // only half the strokewidth is processed ).
+            const endOffsetX = unitX * sw * 1.118;
+            const endOffsetY = unitY * sw * 1.118;
+
+            unitX *= size + sw;
+            unitY *= size + sw;
+
+            const pt = pe.clone();
+            pt.x -= endOffsetX;
+            pt.y -= endOffsetY;
+
+            const f = type !== constants.ARROW.CLASSIC && type !== constants.ARROW.CLASSIC_THIN ? 1 : 3 / 4;
+            pe.x += -unitX * f - endOffsetX;
+            pe.y += -unitY * f - endOffsetY;
+
+            return () => {
+                canvas.begin();
+                canvas.moveTo(pt.x, pt.y);
+                canvas.lineTo(
+                    pt.x - unitX - unitY / widthFactor,
+                    pt.y - unitY + unitX / widthFactor
+                );
+
+                if (type === constants.ARROW.CLASSIC || type === constants.ARROW.CLASSIC_THIN) {
+                    canvas.lineTo(pt.x - (unitX * 3) / 4, pt.y - (unitY * 3) / 4);
+                }
+
+                canvas.lineTo(
+                    pt.x + unitY / widthFactor - unitX,
+                    pt.y - unitY - unitX / widthFactor
+                );
+                canvas.close();
+
+                if (filled) {
+                    canvas.fillAndStroke();
+                } else {
+                    canvas.stroke();
+                }
+            };
+        };
+
+/**
+ * Create a custom implementation to not load all default built-in styles. This is because Graph registers them.
+ *
+ * In the future, we expect to have an implementation of Graph that does not do it.
+ * See https://github.com/maxGraph/maxGraph/issues/760
+ */
+class CustomGraph extends Graph {
+    /**
+     * Only registers the elements required for this example. Do not let Graph load all default built-in styles.
+     */
+    protected override registerDefaults() {
+        // Register builtin shapes
+        // RectangleShape is not registered here because it is always available. It is the fallback shape for vertices when no shape is returned by the registry
+        // TODO remove ts-ignore when maxGraph 0.18.0 is released
+        // @ts-ignore TODO fix CellRenderer. Calls to this function are also marked as 'ts-ignore' in CellRenderer
+        CellRenderer.registerShape('ellipse', EllipseShape);
+
+        // Register builtin styles
+        StyleRegistry.putValue('ellipsePerimeter', Perimeter.EllipsePerimeter);
+        StyleRegistry.putValue('rectanglePerimeter', Perimeter.RectanglePerimeter); // declared in the default vertex style, so must be registered to be used
+        StyleRegistry.putValue('orthogonalEdgeStyle', EdgeStyle.OrthConnector);
+
+        const arrowFunction = createArrow(2);
+        MarkerShape.addMarker('classic', arrowFunction);
+        MarkerShape.addMarker('block', arrowFunction);
+
+        // Register custom shapes
+        registerCustomShapes();
+    }
+}
 
 /**
  * Initializes the graph inside the given container.
@@ -19,71 +119,60 @@ export const initializeGraph = (container?: HTMLElement) => {
     // Disables the built-in context menu
     InternalEvent.disableContextMenu(container);
 
-    const graph = new Graph(container, new GraphDataModel(), [
-        ...getDefaultPlugins(),
+    const graph = new CustomGraph(container, undefined, [
+        PanningHandler, // Enables panning with the mouse
         RubberBandHandler, // Enables rubber band selection
+        SelectionCellsHandler, // Enables management of selected cells
+        SelectionHandler, // Enables selection with the mouse
     ]);
     graph.setPanning(true); // Use mouse right button for panning
 
     // Customize the rubber band selection
     graph.getPlugin<RubberBandHandler>('RubberBandHandler').fadeOut = true;
 
-    // shapes and styles
-    registerCustomShapes();
     // create a dedicated style for "ellipse" to share properties
     graph.getStylesheet().putCellStyle('myEllipse', {
-        perimeter: Perimeter.EllipsePerimeter,
+        perimeter: 'ellipsePerimeter',
         shape: 'ellipse',
         verticalAlign: 'top',
         verticalLabelPosition: 'bottom',
     });
 
-    // Gets the default parent for inserting new cells. This
-    // is normally the first child of the root (ie. layer 0).
-    const parent = graph.getDefaultParent();
-
     // Adds cells to the model in a single step
     graph.batchUpdate(() => {
-        // use the legacy insertVertex method
-        const vertex01 = graph.insertVertex(
-            parent,
-            null,
-            'a regular rectangle',
-            10,
-            10,
-            100,
-            100
-        );
-        const vertex02 = graph.insertVertex(
-            parent,
-            null,
-            'a regular ellipse',
-            350,
-            90,
-            50,
-            50,
-            {
-                baseStyleNames: ['myEllipse'],
-                fillColor: 'orange',
+        const vertex01 = graph.insertVertex({
+                value: 'a regular rectangle',
+                position: [10, 10],
+                size: [100, 100],
             }
         );
-        // use the legacy insertEdge method
-        graph.insertEdge(parent, null, 'an orthogonal style edge', vertex01, vertex02, {
-            edgeStyle: constants.EDGESTYLE.ORTHOGONAL,
-            rounded: true,
+        const vertex02 = graph.insertVertex({
+                value: 'a regular ellipse',
+                position: [350, 90],
+                size: [50, 50],
+                style: {
+                    baseStyleNames: ['myEllipse'],
+                    fillColor: 'orange',
+                }
+            }
+        );
+        graph.insertEdge({
+            value: 'an orthogonal style edge',
+            source: vertex01,
+            target: vertex02,
+            style: {
+                edgeStyle: 'orthogonalEdgeStyle',
+                rounded: true,
+            }
         });
 
-        // insert vertex using custom shapes using the new insertVertex method
         const vertex11 = graph.insertVertex({
-            parent,
             value: 'a custom rectangle',
             position: [20, 200],
             size: [100, 100],
             style: {shape: 'customRectangle'},
         });
-        // use the new insertVertex method using position and size parameters
         const vertex12 = graph.insertVertex({
-            parent,
             value: 'a custom ellipse',
             x: 150,
             y: 350,
@@ -94,9 +183,7 @@ export const initializeGraph = (container?: HTMLElement) => {
                 shape: 'customEllipse',
             },
         });
-        // use the new insertEdge method
         graph.insertEdge({
-            parent,
             value: 'another edge',
             source: vertex11,
             target: vertex12,

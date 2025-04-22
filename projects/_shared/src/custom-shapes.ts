@@ -3,6 +3,7 @@ import {CellRenderer, EllipseShape, RectangleShape} from '@maxgraph/core';
 
 export const registerCustomShapes = (): void => {
   console.info('Registering custom shapes...');
+  // TODO remove ts-ignore when maxGraph 0.18.0 is released
   // @ts-ignore TODO fix CellRenderer. Calls to this function are also marked as 'ts-ignore' in CellRenderer
   CellRenderer.registerShape('customRectangle', CustomRectangleShape);
   // @ts-ignore
