@@ -20,7 +20,8 @@ import {
 import {registerCustomShapes} from "./custom-shapes";
 
 
-// TODO remove this when maxGraph 0.18.0 is released. This is duplicated from maxGraph as it is not exported
+// TODO remove this function when maxGraph 0.18.0 is released and import it from maxGraph instead using EdgeMarker.createArrow
+// It is currently duplicated from maxGraph as it is not exported in version 0.17.0
 const createArrow =
     (widthFactor: number) =>
         (
@@ -92,7 +93,7 @@ class CustomGraph extends Graph {
         // Register builtin shapes
         // RectangleShape is not registered here because it is always available. It is the fallback shape for vertices when no shape is returned by the registry
         // TODO remove ts-ignore when maxGraph 0.18.0 is released
-        // @ts-ignore TODO fix CellRenderer. Calls to this function are also marked as 'ts-ignore' in CellRenderer
+        // @ts-ignore
         CellRenderer.registerShape('ellipse', EllipseShape);
 
         // Register builtin styles
