@@ -4,9 +4,10 @@
   "type": "module",
   "scripts": {
     "dev": "parcel index.html",
-    "build": "tsc && parcel build --public-url ./ index.html"
+    "build": "tsc && del dist && parcel build --public-url ./ index.html"
   },
   "devDependencies": {
+    "del-cli": "~6.0.0",
     "parcel": "~2.15.0"
   }
 }
