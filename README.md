@@ -26,6 +26,11 @@ Build the "shared" package:
 - this package is used in all projects, so it must be built first.
 - for more details, see its [dedicated README](projects/_shared/README.md).
 
+**NOTE**: if you want to build all examples at once, you can run
+```bash
+./build-all-examples.bash
+```
+
 ### Available projects
 
 - [TypeScript with Farm](./projects/farm-ts/README.md)
