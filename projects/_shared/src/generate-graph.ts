@@ -1,18 +1,16 @@
 import {
     BaseGraph,
     CellEditorHandler,
-    CellRenderer,
-    EdgeMarker,
+    EdgeMarker, EdgeMarkerRegistry,
     EdgeStyle,
+    EdgeStyleRegistry,
     EllipseShape,
     InternalEvent,
-    MarkerShape,
     PanningHandler,
-    Perimeter,
+    Perimeter, PerimeterRegistry,
     RubberBandHandler,
     SelectionCellsHandler,
-    SelectionHandler,
-    StyleRegistry,
+    SelectionHandler, ShapeRegistry,
 } from '@maxgraph/core';
 import {registerCustomShapes} from "./custom-shapes";
 
@@ -27,16 +25,16 @@ class CustomGraph extends BaseGraph {
     protected override registerDefaults() {
         // Register builtin shapes
         // RectangleShape is not registered here because it is always available. It is the fallback shape for vertices when no shape is returned by the registry
-        CellRenderer.registerShape('ellipse', EllipseShape);
+        ShapeRegistry.add('ellipse', EllipseShape);
 
         // Register builtin styles
-        StyleRegistry.putValue('ellipsePerimeter', Perimeter.EllipsePerimeter);
-        StyleRegistry.putValue('rectanglePerimeter', Perimeter.RectanglePerimeter); // declared in the default vertex style, so must be registered to be used
-        StyleRegistry.putValue('orthogonalEdgeStyle', EdgeStyle.OrthConnector);
+        PerimeterRegistry.add('ellipsePerimeter', Perimeter.EllipsePerimeter);
+        PerimeterRegistry.add('rectanglePerimeter', Perimeter.RectanglePerimeter); // declared in the default vertex style, so must be registered to be used
+        EdgeStyleRegistry.add('orthogonalEdgeStyle', EdgeStyle.OrthConnector, {handlerKind: 'segment', isOrthogonal: true});
 
         const arrowFunction = EdgeMarker.createArrow(2);
-        MarkerShape.addMarker('classic', arrowFunction);
-        MarkerShape.addMarker('block', arrowFunction);
+        EdgeMarkerRegistry.add('classic', arrowFunction);
+        EdgeMarkerRegistry.add('block', arrowFunction);
 
         // Register custom shapes
         registerCustomShapes();

@@ -1,10 +1,9 @@
-import type {AbstractCanvas2D, ColorValue, Rectangle} from '@maxgraph/core';
-import {CellRenderer, EllipseShape, RectangleShape} from '@maxgraph/core';
+import {AbstractCanvas2D, ColorValue, EllipseShape, Rectangle, ShapeRegistry, RectangleShape} from '@maxgraph/core';
 
 export const registerCustomShapes = (): void => {
   console.info('Registering custom shapes...');
-  CellRenderer.registerShape('customRectangle', CustomRectangleShape);
-  CellRenderer.registerShape('customEllipse', CustomEllipseShape);
+  ShapeRegistry.add('customRectangle', CustomRectangleShape);
+  ShapeRegistry.add('customEllipse', CustomEllipseShape);
   console.info('Custom shapes registered');
 };
 
