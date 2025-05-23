@@ -8,6 +8,6 @@
   },
   "devDependencies": {
     "del-cli": "~6.0.0",
-    "parcel": "~2.15.0"
+    "parcel": "~2.15.1"
   }
 }
