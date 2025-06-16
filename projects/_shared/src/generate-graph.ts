@@ -64,7 +64,8 @@ export const initializeGraph = (container?: HTMLElement) => {
     graph.setPanning(true); // Use mouse right button for panning
 
     // Customize the rubber band selection
-    graph.getPlugin<RubberBandHandler>('RubberBandHandler').fadeOut = true;
+    const rubberBandHandler = graph.getPlugin<RubberBandHandler>('RubberBandHandler');
+    rubberBandHandler && (rubberBandHandler.fadeOut = true);
 
     // create a dedicated style for "ellipse" to share properties
     graph.getStylesheet().putCellStyle('myEllipse', {
