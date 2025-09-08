@@ -115,7 +115,7 @@ jobs:
           # for the ls option, see https://serverfault.com/a/1095912
           echo "projects_path=$(ls -xw0 build/)" >> $GITHUB_OUTPUT
       - name: Create the home page
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         env:
           PROJECTS_PATH: ${{ steps.list_projects.outputs.projects_path }}
         with:
