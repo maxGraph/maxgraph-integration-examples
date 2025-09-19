@@ -30,7 +30,7 @@ jobs:
        with:
          repository: 'maxGraph/maxGraph'
      - name: Setup node
-       uses: actions/setup-node@v4
+       uses: actions/setup-node@v5
        with:
          node-version-file: '.nvmrc'
      - name: Install dependencies
@@ -71,7 +71,7 @@ jobs:
           path: ${{github.workspace}}/../maxgraph-npm-package
       - uses: actions/checkout@v5
       - name: Setup node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version-file: '.nvmrc'
       - name: Install dependencies
