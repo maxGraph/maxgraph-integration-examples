@@ -30,6 +30,7 @@ class CustomGraph extends BaseGraph {
         // Register builtin styles
         PerimeterRegistry.add('ellipsePerimeter', Perimeter.EllipsePerimeter);
         PerimeterRegistry.add('rectanglePerimeter', Perimeter.RectanglePerimeter); // declared in the default vertex style, so must be registered to be used
+
         EdgeStyleRegistry.add('orthogonalEdgeStyle', EdgeStyle.OrthConnector, {handlerKind: 'segment', isOrthogonal: true});
 
         const arrowFunction = EdgeMarker.createArrow(2);
