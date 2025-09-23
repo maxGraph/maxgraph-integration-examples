@@ -13,7 +13,7 @@ class CustomRectangleShape extends RectangleShape {
     this.isRounded = true; // force rounded shape
   }
 
-  paintBackground(
+    override paintBackground(
     c: AbstractCanvas2D,
     x: number,
     y: number,
@@ -24,7 +24,7 @@ class CustomRectangleShape extends RectangleShape {
     super.paintBackground(c, x, y, w, h);
   }
 
-  paintVertexShape(
+    override paintVertexShape(
     c: AbstractCanvas2D,
     x: number,
     y: number,
@@ -41,7 +41,7 @@ class CustomEllipseShape extends EllipseShape {
     super(bounds, fill, stroke, 5);
   }
 
-  paintVertexShape(
+    override paintVertexShape(
     c: AbstractCanvas2D,
     x: number,
     y: number,

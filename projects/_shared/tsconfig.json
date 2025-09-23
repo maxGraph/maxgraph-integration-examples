@@ -15,7 +15,8 @@
     "declaration": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noImplicitReturns": true
+    "noImplicitReturns": true,
+    "noImplicitOverride": true,
   },
   "include": ["src"]
 }
