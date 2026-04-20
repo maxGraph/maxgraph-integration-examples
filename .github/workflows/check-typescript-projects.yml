@@ -156,7 +156,7 @@ jobs:
           path: build
       - name: Upload artifact for GitHub Pages
         if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
-        uses: actions/upload-pages-artifact@v4
+        uses: actions/upload-pages-artifact@v5
         with:
           path: build
 
