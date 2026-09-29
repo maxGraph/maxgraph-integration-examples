@@ -1,4 +1,4 @@
-import {AbstractCanvas2D, ColorValue, EllipseShape, Rectangle, ShapeRegistry, RectangleShape} from '@maxgraph/core';
+import {AbstractCanvas2D, EllipseShape, ShapeRegistry, RectangleShape} from '@maxgraph/core';
 
 export const registerCustomShapes = (): void => {
   console.info('Registering custom shapes...');
@@ -8,9 +8,15 @@ export const registerCustomShapes = (): void => {
 };
 
 class CustomRectangleShape extends RectangleShape {
-  constructor(bounds: Rectangle, fill: ColorValue, stroke: ColorValue) {
-    super(bounds, fill, stroke, 3);
-    this.isRounded = true; // force rounded shape
+  // The renderer builds a registered shape with no argument, so the defaults are declared as class fields.
+  override strokeWidth = 3;
+  override isRounded = true; // force rounded shape
+
+  // Both fields are derived from the style, so they are wiped on every style change and have to be reasserted.
+  override resetStyles(): void {
+    super.resetStyles();
+    this.strokeWidth = 3;
+    this.isRounded = true;
   }
 
     override paintBackground(
@@ -37,8 +43,11 @@ class CustomRectangleShape extends RectangleShape {
 }
 
 class CustomEllipseShape extends EllipseShape {
-  constructor(bounds: Rectangle, fill: string, stroke: string) {
-    super(bounds, fill, stroke, 5);
+  override strokeWidth = 5;
+
+  override resetStyles(): void {
+    super.resetStyles();
+    this.strokeWidth = 5;
   }
 
     override paintVertexShape(
