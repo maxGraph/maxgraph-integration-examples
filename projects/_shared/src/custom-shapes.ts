@@ -1,5 +1,13 @@
 import {AbstractCanvas2D, EllipseShape, ShapeRegistry, RectangleShape} from '@maxgraph/core';
 
+// The renderer builds a registered shape with no argument, so these defaults cannot come from a constructor. They are
+// also derived from the style, so `resetStyles()` wipes them on every style change. Each one is therefore declared
+// twice, as a class field for the first render and in a `resetStyles()` override for every later change, which is why
+// it is a named constant rather than a literal.
+const RECTANGLE_STROKE_WIDTH = 3;
+const RECTANGLE_IS_ROUNDED = true; // force rounded shape
+const ELLIPSE_STROKE_WIDTH = 5;
+
 export const registerCustomShapes = (): void => {
   console.info('Registering custom shapes...');
   ShapeRegistry.add('customRectangle', CustomRectangleShape);
@@ -8,15 +16,13 @@ export const registerCustomShapes = (): void => {
 };
 
 class CustomRectangleShape extends RectangleShape {
-  // The renderer builds a registered shape with no argument, so the defaults are declared as class fields.
-  override strokeWidth = 3;
-  override isRounded = true; // force rounded shape
+  override strokeWidth = RECTANGLE_STROKE_WIDTH;
+  override isRounded = RECTANGLE_IS_ROUNDED;
 
-  // Both fields are derived from the style, so they are wiped on every style change and have to be reasserted.
   override resetStyles(): void {
     super.resetStyles();
-    this.strokeWidth = 3;
-    this.isRounded = true;
+    this.strokeWidth = RECTANGLE_STROKE_WIDTH;
+    this.isRounded = RECTANGLE_IS_ROUNDED;
   }
 
     override paintBackground(
@@ -43,11 +49,11 @@ class CustomRectangleShape extends RectangleShape {
 }
 
 class CustomEllipseShape extends EllipseShape {
-  override strokeWidth = 5;
+  override strokeWidth = ELLIPSE_STROKE_WIDTH;
 
   override resetStyles(): void {
     super.resetStyles();
-    this.strokeWidth = 5;
+    this.strokeWidth = ELLIPSE_STROKE_WIDTH;
   }
 
     override paintVertexShape(
