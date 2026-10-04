@@ -107,6 +107,7 @@ compute_example_size() {
   case "$(basename "$example_dir")" in
     # The index file only contains the HTML generation and the app initialization.
     rsbuild-ts) find_exclusions=(-not -name "index.*.js") ;;
+    *) ;;
   esac
   find "$example_dir/dist" -name "*.js" -type f "${find_exclusions[@]}" -printf '%s\n' | LC_NUMERIC=C awk '
     { total += $1 }
