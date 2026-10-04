@@ -98,6 +98,50 @@ for dir in "${EXAMPLE_DIRS[@]}"; do
   fi
 done
 
+# Sizes are tracked to compare maxGraph versions, so the app code included in the bundles is not a concern as it
+# barely changes. All JS files are summed, as some bundlers (Farm) split the maxGraph code across several files.
+# Print the size in kB of the JS files to keep for an example.
+compute_example_size() {
+  local example_dir="$1"
+  local find_exclusions=()
+  case "$(basename "$example_dir")" in
+    # The index file only contains the HTML generation and the app initialization.
+    rsbuild-ts) find_exclusions=(-not -name "index.*.js") ;;
+    *) ;;
+  esac
+  find "$example_dir/dist" -name "*.js" -type f "${find_exclusions[@]}" -printf '%s\n' | LC_NUMERIC=C awk '
+    { total += $1 }
+    END { if (NR > 0) printf "%.2f", total / 1000 }
+  '
+}
+
+# Server and client files of SvelteKit cannot be told apart reliably for now.
+SIZE_UNTRACKED_EXAMPLE="sveltekit-ts"
+SIZE_EXAMPLE_NAMES=()
+SIZE_VALUES=()
+for dir in "${EXAMPLE_DIRS[@]}"; do
+  example_name="$(basename "$dir")"
+  [[ "$example_name" = "$SIZE_UNTRACKED_EXAMPLE" ]] && continue
+  example_size=""
+  [[ -d "$dir/dist" ]] && example_size=$(compute_example_size "$dir")
+  SIZE_EXAMPLE_NAMES+=("$example_name")
+  SIZE_VALUES+=("${example_size:-N/A}")
+done
+
+print_section_title "Markdown table of bundle sizes"
+echo
+echo "| Example | before | now |"
+echo "| --- | --- | --- |"
+for ((i = 0; i < ${#SIZE_EXAMPLE_NAMES[@]}; i++)); do
+  size="${SIZE_VALUES[$i]}"
+  [[ "$size" != "N/A" ]] && size="$size kB"
+  echo "| ${SIZE_EXAMPLE_NAMES[$i]} | kB | $size |"
+done
+
+print_section_title "CSV of bundle sizes (kB)"
+echo
+(IFS=,; echo "${SIZE_EXAMPLE_NAMES[*]}"; echo "${SIZE_VALUES[*]}")
+
 if [[ ${#FAILED_EXAMPLES[@]} -gt 0 ]]; then
   print_section_title "Failed builds"
   echo
