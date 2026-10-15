@@ -7,7 +7,7 @@
     "build": "tsc && del dist && parcel build --public-url ./ index.html"
   },
   "devDependencies": {
-    "del-cli": "~7.0.0",
+    "del-cli": "~8.0.1",
     "parcel": "~2.16.4"
   }
 }
